@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:16-alpine:///testdb
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Flyway manages schema, even in tests
+    show-sql: true
+  
+  flyway:
+    enabled: true
+    clean-disabled: false  # Allow clean in tests
+  
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: test-client
+            client-secret: test-secret
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/test
+
+logging:
+  level:
+    root: INFO
+    com.keeponme: DEBUG
