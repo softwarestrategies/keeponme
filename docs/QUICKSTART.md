@@ -134,7 +134,7 @@ Edit `docker-compose.yml` and change ports.
 
 ## Next Steps
 
-- Read [README.md](../README.md) for full documentation
+- Read [README.md](../orchestrator/README.md) for full documentation
 - Check [JAVA25_UPGRADE.md](./docs/JAVA25_UPGRADE.md) for Java 25 details
 - Explore the code structure
 
