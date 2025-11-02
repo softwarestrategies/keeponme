@@ -1,4 +1,4 @@
-# KeepOnMe Orchestrator 🔐
+# KeepOnMe 🔐
 
 Production-ready Spring Boot application with Keycloak OAuth2/OIDC authentication, built with Spring Modulith architecture and HTMX-powered UI.
 
