@@ -81,7 +81,7 @@ This will start:
 #### Access Keycloak Admin Console
 - URL: http://localhost:8080
 - Username: `admin`
-- Password: `admin`
+- Password: `changeme`
 
 #### Create Realm
 1. Click **Create Realm**

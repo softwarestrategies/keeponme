@@ -15,7 +15,7 @@
       "name": "KeepOnMe Application",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "your-static-secret-here-change-in-production",
+      "secret": "changeme",
       "redirectUris": [
         "http://localhost:9090/*",
         "http://localhost:9090/login/oauth2/code/keycloak"
