@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:18.0-alpine3.22
     container_name: keeponme-postgres
     environment:
       POSTGRES_DB: postgres
@@ -9,9 +9,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./docker-local-data/postgresql/data:/var/lib/postgresql/data
-      - ./setup/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - postgres_data:/var/lib/postgresql
+      - ./config/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -20,7 +19,8 @@ services:
       start_period: 30s
 
   keycloak:
-    image: quay.io/keycloak/keycloak:23.0.7
+    image: quay.io/keycloak/keycloak:26.4.4
+    #image: quay.io/keycloak/keycloak:23.0.7
     container_name: keeponme-keycloak
     environment:
       KC_DB: postgres
@@ -33,7 +33,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: changeme
     volumes:
       # Import realm on startup
-      - ./setup/keycloak-realm-config.json:/opt/keycloak/data/import/keycloak-realm-config.json:ro
+      - ./config/keycloak-realm-config.json:/opt/keycloak/data/import/keycloak-realm-config.json:ro
     command:
       - start-dev
       - --import-realm
