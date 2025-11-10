@@ -1,5 +1,43 @@
 # Dev Notes
 
+## Stuff to document
+
+### Environment Variables
+
+KEYCLOAK_CLIENT_SECRET=changeme;KEYCLOAK_CLIENT_ID=keeponme-client;POSTGRES_DB_PASSWORD=changeme;POSTGRES_DB_USER=keeponme;SPRING_PROFILES_ACTIVE=dev
+
+### Generate Access Token for Keycloak
+
+% curl -X POST 'http://localhost:8080/realms/keeponme/protocol/openid-connect/token' \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+-d 'client_id=keeponme-client' \
+-d 'client_secret=changeme' \
+-d 'username=testuser' \
+-d 'password=changeme' \
+-d 'grant_type=password'
+
+### Get OpenID Config from Keycloak
+
+curl http://localhost:8080/realms/keeponme/.well-known/openid-configuration
+
+### Docker odds-n-ends
+
+make clean | make verify
+
+docker compose up -d
+
+docker compose stop
+
+docker compose down
+
+
+
+
+
+
+
+
+
 ## Database
 
 ### Connect as superuser to default database
