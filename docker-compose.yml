@@ -29,7 +29,7 @@ services:
       KC_DB_PASSWORD: changeme
       KC_HOSTNAME_STRICT: false
       KC_HTTP_ENABLED: "true"
-      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN: temp_admin
       KEYCLOAK_ADMIN_PASSWORD: changeme
     volumes:
       # Import realm on startup
