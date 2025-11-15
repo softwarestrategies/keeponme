@@ -20,7 +20,6 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.4.4
-    #image: quay.io/keycloak/keycloak:23.0.7
     container_name: keeponme-keycloak
     environment:
       KC_DB: postgres
@@ -32,7 +31,6 @@ services:
       KEYCLOAK_ADMIN: temp_admin
       KEYCLOAK_ADMIN_PASSWORD: changeme
     volumes:
-      # Import realm on startup
       - ./config/keycloak-realm-config.json:/opt/keycloak/data/import/keycloak-realm-config.json:ro
     command:
       - start-dev
