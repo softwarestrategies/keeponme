@@ -48,32 +48,29 @@
     }
   ],
 
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "User role"
+      },
+      {
+        "name": "admin",
+        "description": "Administrator role"
+      }
+    ]
+  },
+
+  "defaultRoles": ["user"],
+
   "users": [
     {
-      "username": "testuser",
-      "enabled": true,
-      "emailVerified": true,
-      "firstName": "Test",
-      "lastName": "User",
-      "email": "testuser@example.com",
-      "credentials": [
-        {
-          "type": "password",
-          "value": "changeme",
-          "temporary": false
-        }
-      ],
-      "realmRoles": [
-        "user"
-      ]
-    },
-    {
-      "username": "admin",
+      "username": "admin@keeponme.com",
+      "email": "admin@keeponme.com",
       "enabled": true,
       "emailVerified": true,
       "firstName": "Admin",
       "lastName": "User",
-      "email": "admin@example.com",
       "credentials": [
         {
           "type": "password",
@@ -86,18 +83,5 @@
         "user"
       ]
     }
-  ],
-
-  "roles": {
-    "realm": [
-      {
-        "name": "user",
-        "description": "User role"
-      },
-      {
-        "name": "admin",
-        "description": "Administrator role"
-      }
-    ]
-  }
+  ]
 }
