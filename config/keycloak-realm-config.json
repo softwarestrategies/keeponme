@@ -19,11 +19,11 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "changeme",
       "redirectUris": [
-        "http://localhost:9090/*",
-        "http://localhost:9090/login/oauth2/code/keycloak"
+        "http://localhost:8080/*",
+        "http://localhost:8080/login/oauth2/code/keycloak"
       ],
       "webOrigins": [
-        "http://localhost:9090"
+        "http://localhost:8080"
       ],
       "protocol": "openid-connect",
       "publicClient": false,

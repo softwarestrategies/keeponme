@@ -82,7 +82,7 @@
 
                                 <button tabindex="8" class="${properties.kcButtonClass!} ${properties.kcButtonDefaultClass!} ${properties.kcButtonLargeClass!}"
                                         type="button"
-                                        onclick="window.location.href='http://localhost:9090/'"
+                                        onclick="window.location.href='http://localhost:8080/'"
                                         style="width: 100%;">
                                     Cancel
                                 </button>

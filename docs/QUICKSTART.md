@@ -14,8 +14,18 @@ docker compose
 ```
 ## Step 1: Setup Keycloak configuration before starting any services or applications
 
-### Adjust values in the /config/keycloak/keycloak-realm.json file
+I want to run Keycloak on port 7777 and my main application on port 8080.  So I need to adjust the docker-compose.yml file accordingly.
 
+### Adjust values in the docker-compose.yml file
+Set the Keycloak port to 7777
+```bash
+keycloak:
+  ..
+  ports:
+    - "7777:8080"
+```
+
+### Adjust values in the /config/keycloak/keycloak-realm.json file
 ```bash
 
 - Change "sslRequired" property from "none" when applicable
@@ -33,9 +43,16 @@ docker compose
       ]
 ```
 
-### Adjust values in the docker-compose.yml file
-
-Set the port that you want Keycloak to run on.  I have it set to "7777" because I want my main application to run on port 8080.
+### Adjust values in the /keycloak/themes/keeponme/login/login.ftl file
+I want my application to run on port 8080 and so I have the following:
+```bash
+  <button tabindex="8" class="${properties.kcButtonClass!} ${properties.kcButtonDefaultClass!} ${properties.kcButtonLargeClass!}"
+    type="button"
+    onclick="window.location.href='http://localhost:8080/'"
+    style="width: 100%;">
+    Cancel
+  </button>
+```
 
 ## Step 2: Startup Docker Compose-configured Services, which are PostgreSQL and Keycloak
 
@@ -92,18 +109,31 @@ We need to create a permanent admin user.  And then we will delete the temporary
 
 ## Step 4: Setup the KeepOnMe application configuration and then start the application
 
-### Adjust values in the application.yml file
-
+### Adjust values in the "application.yml" and "application-test.yml" files
 The "server.port" property should match the port you set in the keycloak-realm-config.json file.  I have it set to 8080.
+```bash
+server:
+  port: 8080
+```
 
 The "spring.security.oauth2.client.provider.keycloak.issuer-uri", which is in two places, needs to have the correct Keycloak port (I chose 7777, see above)
+```bash
+spring:
+  ...
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/keeponme
+```
 
 ### Setup the environment variables for the application
-
 Here are the environment variables that need to be set:
-
+```bash
 - KEYCLOAK_CLIENT_SECRET={ THE CLIENT SECRET YOU SET UP ABOVE IN KEYCLOAK };
 - KEYCLOAK_CLIENT_ID=keeponme-client;
 - POSTGRES_DB_PASSWORD=changeme;
 - POSTGRES_DB_USER=keeponme;
 - SPRING_PROFILES_ACTIVE=dev
+```
