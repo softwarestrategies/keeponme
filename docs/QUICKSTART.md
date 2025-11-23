@@ -1,6 +1,6 @@
 # ⚡ Quick Start Guide
 
-Get KeepOnMe running in 5 minutes!
+Get KeepOnMe running in 10 minutes!
 
 ## Prerequisites Check
 
@@ -10,14 +10,37 @@ java -version  # Must be 25
 
 # Check Docker
 docker --version
-docker-compose --version
+docker compose
 ```
+## Step 1: Setup Keycloak configuration before starting any services or applications
 
-## Step 1: Start Services (2 min)
+### Adjust values in the /config/keycloak/keycloak-realm.json file
 
 ```bash
-cd keeponme-orchestrator
-docker-compose up -d
+
+- Change "sslRequired" property from "none" when applicable
+
+  Should be either "all" or "external" as soon as deployment is to a public facing environment.
+  
+- Change "redirectUris" to match your application's URL.  I want my application to run on port 8080 and so I have the following:
+
+      "redirectUris": [
+        "http://localhost:8080/*",
+        "http://localhost:8080/login/oauth2/code/keycloak"
+      ],
+      "webOrigins": [
+        "http://localhost:8080"
+      ]
+```
+
+### Adjust values in the docker-compose.yml file
+
+Set the port that you want Keycloak to run on.  I have it set to "7777" because I want my main application to run on port 8080.
+
+## Step 2: Startup Docker Compose-configured Services, which are PostgreSQL and Keycloak
+
+```bash
+docker compose up -d
 ```
 
 Wait for services to be healthy:
@@ -25,119 +48,62 @@ Wait for services to be healthy:
 docker-compose ps
 ```
 
-## Step 2: Configure Keycloak (2 min)
+## Step 3: Log into the Keycloak and configure some other settings
 
-### Access Admin Console
-- Open: http://localhost:8080
-- Login: `admin` / `admin`
+In your browser, navigate to http://localhost:7777 and log in with the default credentials noted in the docker-compose.yml file:  temp_admin/changeme
 
-### Create Realm
-1. Click **Create Realm**
-2. Name: `keeponme`
-3. **Create**
-
-### Create Client
-1. **Clients** → **Create Client**
-2. Client ID: `keeponme-client`
-3. **Next**
-4. ✅ Client authentication
-5. ✅ Authorization
-6. **Save**
-7. **Credentials** tab → Copy **Client Secret**
-
-### Set Redirect URIs
-1. Valid redirect URIs: `http://localhost:9090/*`
-2. Web origins: `http://localhost:9090`
-3. **Save**
-
-### Create User
-1. **Users** → **Create User**
-2. Username: `testuser`
-3. Email: `testuser@example.com`
-4. ✅ Email Verified
-5. **Create**
-6. **Credentials** tab
-7. Set Password: `password`
-8. ❌ Temporary
-9. **Set Password**
-
-## Step 3: Update Client Secret (30 sec)
-
-Edit `src/main/resources/application.yml`:
-
-```yaml
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            client-secret: YOUR_COPIED_SECRET_HERE
-```
-
-## Step 4: Restart Application (30 sec)
-
+Once logged in, you will be presented with a screen that has this notification across the top:
 ```bash
-docker-compose restart app
+You are logged in as a temporary admin user. To harden security, create a permanent admin account and delete the temporary one.
 ```
 
-## Step 5: Login! 🎉
+We need to create a permanent admin user.  And then we will delete the temporary one created during the initial Keycloak setup.
 
-1. Open: http://localhost:9090
-2. Click **Sign In with Keycloak**
-3. Login: `testuser` / `password`
-4. You're in!
+### Task #1: Create a permanent Keycloak "admin" user. 
 
-## Verification
+- Navigate to Users -> Add User
+  - Set "Email verified" to "Yes"  (Optional)
+  - Set Username to "admin"  (whatever you want)
+  - Set Email to "admin@keeponme.com"  (whatever it is)
+  - Set the "First Name" and "Last Name"  (whatever it is)
+  - Click "Create"
+- Click on the "Credentials" table and then click on "Set Password"
+  - Set Password and Confirmation Password
+  - Set Temporary to "Off"
+  - Click "Save"
+- Set User Roles for "admin", clicking on the "Role Mappings" tab:
+  - Click on "Assign Role" dropdown and first choose "Realm roles"
+  - Check the whatever ones you want (or all) and click "Assign"
+  - Click on "Assign Role" dropdown again and this time choose "Client roles"
+  - Check the whatever ones you want (or all) and click "Assign"
+- Get rid of the "temp_admin" user created during the initial Keycloak setup.
+  - Click on the "Users" tab
+    - Check the box next to the "temp_admin" user and click on the "Delete User" button.
 
-```bash
-# Check all services
-docker-compose ps
+### Task #2: Setup "keeponme" realm settings. 
 
-# Check application logs
-docker-compose logs app
+- Click on "Manage Realms" and choose "keeponme"
+- Click on "Clients" and choose "keeponme-client"
+  - Click on the "Credentials" tab
+  - For "Client Secret", click on "Regenerate" button and then copy the value and set it aside.
+- Now we want to set the KeepOnMe realm's UI theme, which corresponds to what we set in the docker-compose.yml file.
+- Click on "Realm Settings", then the "Themes" tab.
+  - Under "login theme", choose "keycloak" and Save it.
 
-# Health check
-curl http://localhost:9090/actuator/health
-```
+## Step 4: Setup the KeepOnMe application configuration and then start the application
 
-## Quick Commands
+### Adjust values in the application.yml file
 
-```bash
-# View logs
-docker-compose logs -f app
+The "server.port" property should match the port you set in the keycloak-realm-config.json file.  I have it set to 8080.
 
-# Stop services
-docker-compose down
+The "spring.security.oauth2.client.provider.keycloak.issuer-uri", which is in two places, needs to have the correct Keycloak port (I chose 7777, see above)
 
-# Rebuild everything
-docker-compose up --build --force-recreate
+### Setup the environment variables for the application
 
-# Clean volumes
-docker-compose down -v
-```
+Here are the environment variables that need to be set:
 
-## Troubleshooting
-
-### Application not starting?
-```bash
-docker-compose logs app
-```
-
-### Can't connect to Keycloak?
-```bash
-curl http://localhost:8080/health
-```
-
-### Port conflicts?
-Edit `docker-compose.yml` and change ports.
-
-## Next Steps
-
-- Read [README.md](../orchestrator/README.md) for full documentation
-- Check [JAVA25_UPGRADE.md](./docs/JAVA25_UPGRADE.md) for Java 25 details
-- Explore the code structure
-
----
-
-**Need Help?** Check the full README or open an issue!
+- KEYCLOAK_CLIENT_SECRET={ THE CLIENT SECRET YOU SET UP ABOVE IN KEYCLOAK };
+- KEYCLOAK_CLIENT_ID=keeponme-client;
+- POSTGRES_DB_PASSWORD=changeme;
+- POSTGRES_DB_USER=keeponme;
+- SPRING_PROFILES_ACTIVE=dev

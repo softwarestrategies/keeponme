@@ -1,5 +1,38 @@
 # Dev Notes
 
+## Initial Setup 
+
+Before running docker compose and also the application, you need to set & setup a few things first
+
+## ✅ Keycloak Configuration Setup
+
+### Adjust values in the /config/keycloak/keycloak-realm.json file
+
+
+## Things to change ahead of time for the sake of Security, especially when run non-locally
+
+- sslRequired: "none"
+
+        This should be set to either "all" or "external" as soon as deployment is to a public facing environment.  Using "none" is fine for local development, but in public it can explose traffic to sniffing and make authentication insecure.
+
+- Client Secret -- change from "changeme" to something else.
+
+- Admin User Password -- change from "changeme" to something else.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Stuff to document
 
 ### Environment Variables
@@ -22,13 +55,17 @@ curl http://localhost:8080/realms/keeponme/.well-known/openid-configuration
 
 ### Docker odds-n-ends
 
-make clean | make verify
-
 docker compose up -d
 
 docker compose stop
 
 docker compose down
+
+docker compose down
+
+docker compose up -d
+
+make clean | make verify
 
 
 
