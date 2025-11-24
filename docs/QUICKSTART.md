@@ -2,7 +2,7 @@
 
 Get KeepOnMe running in 10 minutes!
 
-## Prerequisites Check
+## ✅ Prerequisites Check
 
 ```bash
 # Check Java version
@@ -12,7 +12,7 @@ java -version  # Must be 25
 docker --version
 docker compose
 ```
-## Step 1: Setup Keycloak configuration before starting any services or applications
+## ✅ Step 1: Setup Keycloak configuration before starting any services or applications
 
 I want to run Keycloak on port 7777 and my main application on port 8080.  So I need to adjust the docker-compose.yml file accordingly.
 
@@ -54,7 +54,7 @@ I want my application to run on port 8080 and so I have the following:
   </button>
 ```
 
-## Step 2: Startup Docker Compose-configured Services, which are PostgreSQL and Keycloak
+## ✅ Step 2: Startup Docker Compose-configured Services, which are PostgreSQL and Keycloak
 
 ```bash
 docker compose up -d
@@ -107,7 +107,7 @@ We need to create a permanent admin user.  And then we will delete the temporary
 - Click on "Realm Settings", then the "Themes" tab.
   - Under "login theme", choose "keycloak" and Save it.
 
-## Step 4: Setup the KeepOnMe application configuration and then start the application
+## ✅ Step 4: Setup the KeepOnMe application configuration and then start the application
 
 ### Adjust values in the "application.yml" and "application-test.yml" files
 The "server.port" property should match the port you set in the keycloak-realm-config.json file.  I have it set to 8080.

@@ -31,8 +31,8 @@ services:
       KEYCLOAK_ADMIN: temp_admin
       KEYCLOAK_ADMIN_PASSWORD: changeme
     volumes:
-      - ./config/keycloak-realm-config.json:/opt/keycloak/data/import/keycloak-realm-config.json:ro
-      - ./keycloak/themes/keeponme:/opt/keycloak/themes/keeponme
+      - ./config/keycloak/keycloak-realm-config.json:/opt/keycloak/data/import/keycloak-realm-config.json:ro
+      - ./config/keycloak/themes/keeponme:/opt/keycloak/themes/keeponme
     command:
       - start-dev
       - --import-realm

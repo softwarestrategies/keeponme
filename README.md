@@ -2,6 +2,9 @@
 
 Production-ready Spring Boot application with Keycloak OAuth2/OIDC authentication, built with Spring Modulith architecture and HTMX-powered UI.
 
+[Quick Start guide](docs/QUICKSTART.md#)
+
+
 ## 🚀 Technology Stack
 
 - **Java 25** - Latest Java release
