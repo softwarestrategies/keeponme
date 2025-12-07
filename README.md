@@ -1,20 +1,15 @@
 # KeepOnMe 🔐
 
-Production-ready Spring Boot application with Keycloak OAuth2/OIDC authentication, built with Spring Modulith architecture and HTMX-powered UI.
-
-[Quick Start guide](docs/QUICKSTART.md#)
-
+Spring Boot application with Keycloak OAuth2/OIDC authentication, built with Spring Modulith architecture and HTMX-powered UI.
 
 ## 🚀 Technology Stack
 
 - **Java 25** - Latest Java release
-- **Spring Boot 3.5.7** - Application framework
-- **Spring Modulith 1.3.1** - Modular monolith architecture
+- **Spring Boot 4.x** - Application framework
 - **Spring Security** - OAuth2/OIDC authentication
 - **Spring Cloud Gateway MVC** - Non-reactive API gateway
-- **Keycloak 24.0** - Identity and Access Management
-- **PostgreSQL 16** - Relational database (shared setup)
-- **HTMX 1.9.10** - Dynamic UI interactions
+- **Keycloak 26.4.4** - Identity and Access Management
+- **PostgreSQL 18** - Relational database (shared setup)
 - **Thymeleaf** - Server-side templating
 - **Lombok 1.18.42** - Java 25 compatible code generation
 - **Docker & Docker Compose** - Containerization
@@ -38,6 +33,14 @@ Production-ready Spring Boot application with Keycloak OAuth2/OIDC authenticatio
 - **Java 25** ([Download Eclipse Temurin](https://adoptium.net/))
 - **Docker & Docker Compose** ([Download Docker](https://www.docker.com/get-started))
 - **Maven 3.9+** (or use included Maven wrapper)
+
+## 🔧 Documentation
+
+[Quick Start guide](docs/QUICKSTART.md#)
+
+
+
+
 
 ## 🔧 Java 25 Configuration
 

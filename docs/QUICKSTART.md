@@ -65,7 +65,7 @@ Wait for services to be healthy:
 docker-compose ps
 ```
 
-## Step 3: Log into the Keycloak and configure some other settings
+## ✅ Step 3: Log into the Keycloak and configure some other settings
 
 In your browser, navigate to http://localhost:7777 and log in with the default credentials noted in the docker-compose.yml file:  temp_admin/changeme
 

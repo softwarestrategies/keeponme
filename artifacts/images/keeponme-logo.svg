@@ -1,0 +1,20 @@
+<svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="arrowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563EB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="700" height="700" fill="#ffffff"/>
+  
+  <g transform="translate(350, 350)">
+    <circle cx="0" cy="0" r="324" fill="#ffffff" stroke="#e5e7eb" stroke-width="20"/>
+    
+    <g transform="translate(-200, -125) scale(1.1, 1.1) translate(20, 0)">
+      <path d="M 0 50 L 120 125 L 0 200 Z" fill="#DC2626" opacity="0.6"/>
+      <path d="M 140 50 L 260 125 L 140 200 Z" fill="url(#arrowGradient)" opacity="0.8"/>
+      <path d="M 280 50 L 400 125 L 280 200 Z" fill="#2563EB"/>
+    </g>
+  </g>
+</svg>
